@@ -122,7 +122,7 @@ Hooks that a kernel lacks are skipped (`doctor` lists them) instead of failing t
 - It sees what the kernel sees. GPU stalls, frame pacing and the server's own simulation are invisible, so "nothing stood out" is a real answer.
 - UDP gaps can't tell a stall from a quiet flow (voice chat while nobody talks); the verdict only treats gaps on busy flows as stalls.
 - Userspace tunnels are blamed through their process (CPU waits, unread packets), not per packet.
-- The built-in probe is IPv4 only. Tested on x86_64 (Linux 7.2: Arch, zen).
+- The built-in probe is IPv4 only. Tested on x86_64: Linux 7.2 (Arch, zen) and 7.0 (Ubuntu, in CI).
 
 ## License
 
