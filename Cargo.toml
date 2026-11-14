@@ -1,0 +1,32 @@
+[package]
+name = "lagblame"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "Explains lag spikes per app with eBPF: CPU scheduler, network stack, VPN tunnel, LAN, internet or server"
+license = "MIT"
+repository = "https://github.com/Tjabooo/lagblame"
+readme = "README.md"
+keywords = ["ebpf", "latency", "gaming", "network", "linux"]
+categories = ["command-line-utilities", "network-programming"]
+
+[profile.release]
+lto = "thin"
+strip = true
+
+[dependencies]
+anyhow = "1.0.104"
+chrono = "0.4.45"
+clap = { version = "4.6.7", features = ["derive"] }
+libbpf-rs = "0.27.2"
+libc = "0.2.191"
+ratatui = "0.30.2"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+toml = "1.2.1"
+
+[build-dependencies]
+libbpf-cargo = "0.27.2"
+
+[dev-dependencies]
+tempfile = "3.27.0"

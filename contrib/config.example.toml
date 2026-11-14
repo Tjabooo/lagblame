@@ -1,0 +1,30 @@
+# ~/.config/lagblame/config.toml — every key is optional.
+
+# Apps that start a recording session (process name, executable or argv[0]).
+apps = ["cs2"]
+# Watched only while one of `apps` runs (voice chat, launchers).
+companions = ["Discord"]
+# Userspace VPN processes, watched so their stalls can be blamed. The defaults
+# cover mullvad-daemon, wireguard-go, gotatun, boringtun, openvpn, tailscaled,
+# nebula and zerotier-one.
+# tunnel_procs = ["mullvad-daemon"]
+
+[thresholds]          # when a single moment becomes an event (ms)
+runqueue_ms = 4       # a thread waited this long for a CPU
+gap_ms = 50           # a busy flow went quiet this long
+pickup_ms = 4         # a packet sat unread in the socket this long
+stack_ms = 2          # NIC -> socket took this long
+softirq_ms = 2        # network softirq ran this late
+
+[probe]               # LAN vs internet latency
+mode = "builtin"      # ICMP ping sockets to the gateway + wan_target; or "file" / "off"
+wan_target = "1.1.1.1"
+interval_ms = 1000
+# mode = "file" reads another prober's JSON: {"gw": ms, "wan": ms, "loss": 0..1}
+# file = "~/.local/state/myprober/net.json"
+
+[record]
+# dir = "~/.local/state/lagblame/sessions"
+retention_days = 7
+max_mb = 2048
+linger_s = 30         # keep a session open this long after the last app exits

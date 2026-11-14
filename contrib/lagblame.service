@@ -1,0 +1,15 @@
+[Unit]
+Description=lagblame: record lag sessions while watched apps run
+Documentation=https://github.com/Tjabooo/lagblame
+ConditionPathExists=%h/.config/lagblame/config.toml
+
+[Service]
+# skipped (not failed) until `sudo setcap cap_bpf,cap_perfmon+ep ~/.local/bin/lagblame` was run
+ExecCondition=%h/.local/bin/lagblame caps
+ExecStart=%h/.local/bin/lagblame record
+Restart=on-failure
+RestartSec=10
+Nice=5
+
+[Install]
+WantedBy=default.target
