@@ -12,7 +12,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build deps (clang for the BPF program, libelf/zlib for libbpf)
         run: sudo apt-get update && sudo apt-get install -y clang libelf-dev zlib1g-dev pkg-config
       - uses: dtolnay/rust-toolchain@stable
@@ -28,7 +28,7 @@ jobs:
     # and checks the three staged lag sources get blamed right
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Deps
         run: |
           sudo apt-get update
