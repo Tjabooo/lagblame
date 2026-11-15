@@ -74,5 +74,8 @@ kill $srv
 check "overhead measured" "grep -q 'kernel side' /tmp/over.log"
 
 [ $fail = 0 ] && echo "RESULT: PASS" || echo "RESULT: FAIL"
+# Let the serial console drain first: sysrq prints "Power Off" at default loglevel, and it used to land
+# inside the RESULT line ("RESULT: [ 33.96] sysrq: Power Off"), failing a passing run.
+sleep 1
 echo o >/proc/sysrq-trigger
 sleep 5
