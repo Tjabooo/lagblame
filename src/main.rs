@@ -251,6 +251,10 @@ fn run(cli: Cli) -> Result<()> {
                 let dir = cfg.session_dir();
                 let path = session::covering(&dir, m.t).context("no session is being recorded")?;
                 let s = session::read(&path)?;
+                // an old session is not "being recorded": stay quiet instead of explaining stale data
+                if s.end() < m.t - 10.0 {
+                    bail!("no session is being recorded (no watched app running)");
+                }
                 let v = verdict::explain(&s.ticks, &s.evs, m.t, None, &opts(&cfg));
                 print!("{}", verdict::render(&v));
                 if notify {
